@@ -9,8 +9,8 @@ import com.instagram.profile_service.entity.ProfileEntity;
 
 public interface ProfileRepository extends CrudRepository<ProfileEntity, UUID> {
 	
-	public Optional<ProfileEntity> findByUsername(String username);
-	public Optional<ProfileEntity> findByEmail(String email);
-	public boolean existsByUsername(String username);
-	public boolean existsByEmail(String email);
+	Optional<ProfileEntity> findByUsername(String username);
+	Optional<ProfileEntity> findByEmail(String email);
+	boolean existsByUsername(String username);
+	boolean existsByEmail(String email);
 }

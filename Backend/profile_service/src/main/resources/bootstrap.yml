@@ -3,7 +3,7 @@ spring:
     name: ProfileMS
   cloud:
     consul:
-      host: localhost
+      host: homepi.in
       discovery:
         hostname: localhost
       config:
