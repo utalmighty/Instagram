@@ -1,0 +1,6 @@
+use Huduk
+db.createCollection('SOS')
+db.fileObject.insertMany([
+{  "_id": "TPEMPR",  "location": "C:\\\\Huduk\\\\SOS_Data\\\\paisa laya.jpg",  "fileName": "paisa laya.jpg",  "lastUsedOn": {    "$date": {      "$numberLong": "1709577000000"    }  },  "_class": "com.huduk.sos.SOS.entity.SOS"},
+{  "_id": "SMET9I",  "location": "C:\\\\Huduk\\\\SOS_Data\\\\RadhaKrishna (1).jpg",  "fileName": "RadhaKrishna (1).jpg",  "lastUsedOn": {    "$date": {      "$numberLong": "1709577000000"    }  },  "_class": "com.huduk.sos.SOS.entity.SOS"}
+])

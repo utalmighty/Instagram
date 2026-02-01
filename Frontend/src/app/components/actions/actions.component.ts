@@ -1,0 +1,29 @@
+import { Component, EventEmitter, Output } from '@angular/core';
+import { InstagramServiceService } from '../../services/instagram-service.service';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-actions',
+  templateUrl: './actions.component.html',
+  styleUrls: ['./actions.component.css'],
+  imports: [CommonModule ,RouterModule]
+})
+export class ActionsComponent {
+  userId!: string;
+  ppId!: string;
+  @Output()
+  emitter: EventEmitter<boolean> = new EventEmitter();
+
+  constructor(private service: InstagramServiceService) {
+    this.service.loginUser$.subscribe((r) => {
+      this.userId = r.userId
+      this.ppId = r.ppId
+    })
+  }
+
+  openPost() {
+    this.emitter.emit(true);
+  }
+
+}

@@ -1,0 +1,60 @@
+<div class="container-fluid border-bottom border-dark-subtle ">
+    <div class="row p-3 ">
+        <div class="col-4 align-items-center text-center  m-auto pe-auto" *ngIf="isProfile && chosenUser">
+            <img *ngIf="chosenUser.ppId" src="http://localhost:9999/huduk/sos/{{chosenUser.ppId}}"
+                class="rounded-circle profilepic border-3 border-black border" height="150px" width="150px">
+            <img *ngIf="!chosenUser.ppId" src=".\assets\profile.svg" width="30px" height="30px"
+                class="rounded-circle profilepic border-3 border-black border" height="150px" width="150px" alt="">
+        </div>
+
+        <!-- Profile -->
+        <div class="col-8" *ngIf="isProfile && chosenUser">
+
+            <div class="container-fluid">
+                <div class="row text text-center ">
+                    <p class="col fw-bolder fs-5">{{chosenUser.username}} <img src="./assets/verified.svg" height="18px"
+                            *ngIf="chosenUser.verified"></p>
+                </div>
+                <div class="row text-center fw-bolder ">
+                    <div class="col-4">
+                        <p class="m-0">{{chosenUser.postCount}}</p>
+                        <p>Posts</p>
+                    </div>
+                    <div class="col-4 text-center clickable" [routerLink]="['/search', 'follower', chosenUser.userId]">
+                        <p class="m-0">{{chosenUser.followersCount}}</p>
+                        <p>Follower</p>
+                    </div>
+                    <div class="col-4  text-center clickable"
+                        [routerLink]="['/search', 'following', chosenUser.userId]">
+                        <p class="m-0">{{chosenUser.followingCount}}</p>
+                        <p>Following</p>
+                    </div>
+                </div>
+                <div class="row" *ngIf="chosenUser.username == user.username">
+                    <button class="btn btn-close-white border-black  fw-bold" (click)="logout()">Log out</button>
+                </div>
+
+                <div class="row" *ngIf="chosenUser.username != user.username">
+                    <button class="btn btn-primary fw-bold" (click)="follow()" *ngIf="!following">Follow</button>
+                    <button class="btn btn-close-white border-black  fw-bold" (click)="follow()"
+                        *ngIf="following">Unfollow</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Other -->
+        <div class="col-4 align-items-center text-center  m-auto pe-auto" *ngIf="!isProfile">
+            <img src=".\assets\hash.svg" class="rounded-circle profilepic border-3 border-black border" height="150px"
+                width="150px">
+        </div>
+        <div class="col-8" *ngIf="!isProfile">
+            <div class="container-fluid">
+                <div class="row">
+                    <h1 class="col display-3" style="margin: 35px;">{{sharedname}}</h1>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<app-post *ngIf="sharedname && feedType" [searchQuery]="sharedname" [feedType]="feedType"></app-post>

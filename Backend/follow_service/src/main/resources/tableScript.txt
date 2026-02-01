@@ -1,0 +1,9 @@
+use InstagramFollow
+db.createCollection('Follow')
+db.fileObject.insertMany([
+	{
+	  "_id": "a3161aa2-ef5c-4572-9cd1-dabdbd2a0ea9:e5aba885-edd0-40b8-9431-5b499884b5ae",
+	  "follower": {    "$binary": {      "base64": "ckVc76IaFqOpDiq9vdrRnA==",      "subType": "03"    }  },  	"following": {    "$binary": {      "base64": "uEDQ7YWoq+WutYSYSVsxlA==",      "subType": "03"    }  }
+	},
+	{  "_id": "9c81d69a-2f83-4a00-bd73-3deec8cf1dbe:e5aba885-edd0-40b8-9431-5b499884b5ae",  "follower": {    "$binary": {      "base64": "AEqDL5rWgZy+Hc/I7j1zvQ==",      "subType": "03"    }  },  "following": {    "$binary": {      "base64": "uEDQ7YWoq+WutYSYSVsxlA==",      "subType": "03"    }  }}
+])

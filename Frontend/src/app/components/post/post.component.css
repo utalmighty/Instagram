@@ -1,0 +1,50 @@
+.content > p{
+    padding: 10px;
+}
+
+.action {
+    margin-top: 10px;
+    margin-bottom: 10px ;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 10px;
+}
+
+.spacing {
+    margin: 0;
+}
+
+.author {
+    margin-top: 10px;
+    margin-bottom: 10px ;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 10px;
+}
+
+.author:hover {
+    cursor: pointer;
+}
+
+.commentcard {
+    position: fixed;
+    bottom: 0;
+}
+.blur {
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+}
+
+.actionbutton:hover {
+    cursor: pointer;
+}
+
+
+@media screen and (min-width: 992px){
+ .image{
+    height: 500px;
+ } 
+}

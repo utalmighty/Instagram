@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruleset name="Java FP RuleSet"
+	xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+	<description>This ruleset is used to check the codes for some of the many coding standards</description>
+	
+	<exclude-pattern>.*/verification/.*</exclude-pattern>
+	<exclude-pattern>.*/.*Repository.java</exclude-pattern>
+	<exclude-pattern>.*/.*Tester.java</exclude-pattern>
+
+	<rule ref="category/java/bestpractices.xml/AvoidPrintStackTrace" />
+	<rule ref="category/java/bestpractices.xml/SystemPrintln" />
+	<rule ref="category/java/bestpractices.xml/UnusedFormalParameter">
+		<properties>
+			<property name="checkAll" value="true" />
+		</properties>
+	</rule>
+	<rule ref="category/java/bestpractices.xml/UnusedImports"/>
+	<rule ref="category/java/bestpractices.xml/UnusedLocalVariable" />
+<!--	<rule ref="category/java/bestpractices.xml/UnusedPrivateField">
+		<properties>
+			<property name="ignoredAnnotations" value="java.lang.Deprecated|org.mockito.Mock" />
+		</properties>
+	</rule>-->
+	<rule ref="category/java/codestyle.xml/ClassNamingConventions">
+		<properties>
+			<property name="utilityClassPattern" value="[A-Z][a-zA-Z0-9]*" />
+		</properties>
+	</rule>
+	<rule ref="category/java/codestyle.xml/FieldNamingConventions" />
+	<rule ref="category/java/codestyle.xml/LocalVariableNamingConventions" />
+	<rule ref="category/java/codestyle.xml/MethodNamingConventions" />
+</ruleset>

@@ -1,0 +1,36 @@
+<div class="card container-fluid">
+    <div class="card-header row">
+        <p class="text fw-bolder heading col-6">
+            Comments
+            <span class="badge bg-info ">{{commentCount}}</span>
+        </p>
+        <p class="close fw-bolder col-6 text-end" (click)="close()">
+            X
+        </p>
+    </div>
+
+    <div class="card-body" style="height: 50vh; overflow:auto">
+
+        <div *ngFor="let comment of comments">
+            <p><b class="fst-italic username"
+                    [routerLink]="['/profile', 'username', comment.profile.username]">{{comment.profile.username}} 
+                    <img src="./assets/verified.svg" height="20px" *ngIf="comment.profile.verified"></b>
+                : {{comment.comment}}</p>
+        </div>
+    </div>
+
+    <div class="card-footer container-fluid">
+        <div class="form-group row">
+            <input class="col-8" placeholder="{{commentPlaceHolder}}" type="text" id="comment" [(ngModel)]="comment">
+            <button class="btn btn-primary offset-1 col-3" (click)="sendComment()">Send</button>
+        </div>
+
+    </div>
+    <div class="text-center text text-danger" *ngIf="httperror"><b>
+            {{ httperror.message }}
+        </b>
+    </div>
+</div>
+
+<div class="">&nbsp;</div>
+<div class="">&nbsp;</div>

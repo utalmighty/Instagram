@@ -1,0 +1,24 @@
+use InstagramPost
+db.createCollection('Post')
+db.fileObject.insertMany(
+    {  "_id": {    "$oid": "65e61463f866705078abbb66"  },  "userId": {    "$binary": {      "base64": "uEDQ7YWoq+WutYSYSVsxlA==",      "subType": "03"    }  },  "links": [    "TPEMPR"  ],  "postContent": "Playstore games be like.. 🤣🤣 #lol #meme",  "likeCount": 5,  "commentCount": 5,  "viewCount": 0,  "timestamp": {    "$date": {      "$numberLong": "1709577315712"    }  },  "isActive": true,  "_class": "com.Instagram.post_service.entity.PostEntity"},
+    {  "_id": {    "$oid": "65e61837f866705078abbb67"  },  "userId": {    "$binary": {      "base64": "uEDQ7YWoq+WutYSYSVsxlA==",      "subType": "03"    }  },  "links": [    "SMET9I"  ],  "postContent": "🦚Radhe Krishna🪈. Jai Shri Kishna bolo Jai Radhe.. #Krishna #Radha #Flute",  "likeCount": 6,  "commentCount": 6,  "viewCount": 0,  "timestamp": {    "$date": {      "$numberLong": "1709578295508"    }  },  "isActive": true,  "_class": "com.Instagram.post_service.entity.PostEntity"}
+)
+
+db.createCollection('Comment')
+db.fileObject.insertMany([
+    {  "_id": {    "$oid": "65e62116f866705078abbb68"  },  "postId": "65e61463f866705078abbb66",  "userId": {    "$binary": {      "base64": "uEDQ7YWoq+WutYSYSVsxlA==",      "subType": "03"    }  },  "content": "This was good🤣",  "_class": "com.Instagram.post_service.entity.CommentEntity"},
+    {  "_id": {    "$oid": "65e625eaf866705078abbb69"  },  "postId": "65e61463f866705078abbb66",  "userId": {    "$binary": {      "base64": "uEDQ7YWoq+WutYSYSVsxlA==",      "subType": "03"    }  },  "content": "LoL",  "_class": "com.Instagram.post_service.entity.CommentEntity"}
+])
+
+db.createCollection('Like')
+db.fileObject.insertMany([
+    {  "_id": "65e61837f866705078abbb67:e5aba885-edd0-40b8-9431-5b499884b5ae",  "_class": "com.Instagram.post_service.entity.LikeEntity"},
+    {  "_id": "65e61463f866705078abbb66:e5aba885-edd0-40b8-9431-5b499884b5ae",  "_class": "com.Instagram.post_service.entity.LikeEntity"}
+])
+
+db.createCollection('Tag')
+db.fileObject.insertMany([
+    {  "_id": "lol",  "postId": [    "65e61463f866705078abbb66",    "65e7f37d4b0e60095b98fbd0",    "65e7f41c4b0e60095b98fbd1",    "65e9857c85232e0c893fd7ad"  ],  "_class": "com.Instagram.post_service.entity.TagEntity"},
+    {  "_id": "meme",  "postId": [    "65e61463f866705078abbb66",    "65e6bc9dbc15b2351cf55809",    "65e7f37d4b0e60095b98fbd0",    "65e7f41c4b0e60095b98fbd1",    "65e9857c85232e0c893fd7ad"  ],  "_class": "com.Instagram.post_service.entity.TagEntity"}
+])

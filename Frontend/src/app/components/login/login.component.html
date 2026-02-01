@@ -1,0 +1,35 @@
+<div class="container-fluid"  >
+
+  <div class="row">
+    <div class="col fw-bolder fs-4 m-3">
+      Login
+    </div>
+  </div>
+  <form class="form" [formGroup]="loginForm" (ngSubmit)="(login())">
+
+    <!-- username -->
+    <div class="form-group m-3">
+      <input class="form-control" placeholder="Username" type="text" id="username" formControlName="username">
+      <span id="usernameError" *ngIf="loginForm.controls['username'].dirty && loginForm.controls['username'].invalid"
+        class="text-danger">Really! thats your username?</span>
+    </div>
+
+    <!-- password -->
+    <div class="form-group m-3">
+      <input class="form-control" placeholder="Password" type="password" id="password" formControlName="password">
+      <span id="passwordError" *ngIf="loginForm.controls['password'].dirty && loginForm.controls['password'].invalid"
+        class="text-danger">Are you serious?</span>
+    </div>
+
+    <button class="btn btn-success m-3" type="submit" [disabled]="loginForm.invalid">Login</button>
+
+    <div class="text-center text text-danger" *ngIf="httperror"><b>
+      {{ httperror.message }}
+    </b>
+    </div>
+
+  </form>
+
+  <div class="m-3">Dont have an account? <a class="linkclass" [routerLink]="['/register']"><b>Register</b></a></div>
+
+</div>

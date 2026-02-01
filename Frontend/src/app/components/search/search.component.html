@@ -1,0 +1,38 @@
+<div class="container-fluid border-bottom border-dark-subtle ">
+    <div class="row p-3 ">
+
+        <!-- search -->
+        <div class="form-group" *ngIf="isSearch">
+            <input class="form-control" placeholder="Search" type="text" id="search" #searchInput
+                (input)="search(searchInput.value)">
+        </div>
+
+        <div *ngIf="!isSearch">
+            <div class="col p-0  fw-bolder fs-4">
+                {{displayText}}
+              </div>
+        </div>
+    </div>
+</div>
+
+<div class="results" style="height: 90vh;">
+    <table class="table table-hover table-bordered">
+        <tr class="tablerow" *ngFor="let search of searchResults">
+            <td class="container-fluid pt-2 pb-2 ">
+                <div class="row clickable" *ngIf="search.type=='profile'" [routerLink]="['/profile', 'username', search.name]">
+                    <div class="offset-1 col-2">
+                        <img *ngIf="search.profile.ppId" src="http://localhost:9999/huduk/sos/{{search.profile.ppId}}" class="rounded-circle profilepic border-2 border-black border " height="30px" width="30px">
+                        <img *ngIf="!search.profile.ppId" src=".\assets\profile.svg" width="30px" height="30px" class="rounded-circle profilepic border-2 border-black border" alt="">
+                    </div>
+                    <div class="col-9 fw-semibold">{{search.name}} <img src="./assets/verified.svg" height="20px" *ngIf="search.profile.verified"></div>    
+                </div>
+                <div class="row clickable" *ngIf="search.type=='tag'" [routerLink]="['/profile', 'tag', search.name]">
+                    <div class="offset-1 col-2">
+                        <img src="./assets/hash.svg" class="rounded-circle profilepic border-2  border-black border" height="30px" width="30px">
+                    </div>
+                    <div class="col-9">{{search.name}}</div>    
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

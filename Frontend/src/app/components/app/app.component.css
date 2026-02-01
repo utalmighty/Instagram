@@ -1,0 +1,14 @@
+.utal{
+    width: 50%;
+}
+
+@media  screen and (max-width: 540px) {
+    .utal{
+        width: 100%;
+    }
+}
+@media  screen and (541px <= width <= 738px) {
+    .utal{
+        width: 75%;
+    }
+}

@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+    stages {
+    	stage('SonarQube Analysis') {
+            steps {
+                bat 'mvn verify sonar:sonar -f follow_service'
+            }
+        } 
+
+        stage('Build') {
+            steps {
+                script {
+                    def portNumber = 9092
+                    def jobName = env.JOB_NAME                   
+                    def pom = readMavenPom file: 'follow_service\\pom.xml'
+                    def finalName = pom.build.finalName
+
+                    bat "\"C:\\Softwares\\jenkins\\BatchFiles\\Kill_Process.bat\" ${portNumber}"
+                    bat 'mvn clean install -f follow_service'
+                    bat "\"C:\\Softwares\\jenkins\\BatchFiles\\Deploy_Server.bat\" ${jobName} ${finalName}"
+                }
+            }
+        }
+
+        stage('Wait for Frontend Build') {
+            steps {
+                script {
+                    def frontendJob = build job: 'Frontend'
+                }
+            }
+        }
+
+    }
+}

@@ -1,0 +1,12 @@
+pipeline {
+    agent any
+    stages {
+        stage('Deployment') {
+            steps {
+                bat 'C:\\Softwares\\jenkins\\BatchFiles\\Kill_Process.bat 4200'
+                bat 'npm install --force'
+                bat 'ng build'
+            }
+        }
+    }
+}

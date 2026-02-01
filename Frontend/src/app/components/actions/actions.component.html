@@ -1,0 +1,40 @@
+<div *ngIf="userId">
+    <nav class="navbar navbar-dark bg-white d-flex justify-content-around border-black border-top border-top-1">
+      <div>
+        <a [routerLink]="['home']">
+          <img src=".\assets\home.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+          <a class="navbar-text text-dark">Home</a>
+        </a>
+      </div>
+
+      <div>
+        <a [routerLink]="['search/search/instagram']">
+          <img src=".\assets\search.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+          <a class="navbar-text text-dark">Search</a>
+        </a>
+      </div>
+
+      <div>
+        <a (click)="openPost()">
+          <img src=".\assets\add.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+          <a class="navbar-text text-dark">Post</a>
+        </a>
+      </div>
+
+      <div>
+        <a [routerLink]="['/profile', 'trending', '']">
+          <img src=".\assets\trending.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+          <a class="navbar-text text-dark">Trending</a>
+        </a>
+      </div>
+
+      <div>
+        <a [routerLink]="['/profile', 'username', '']">
+          <img *ngIf="ppId" src="http://localhost:9999/huduk/sos/{{ppId}}" width="30" height="30" class="d-inline-block align-top rounded-circle border-2 border-black border" alt="">
+          <img *ngIf="!ppId" src=".\assets\profile.svg" width="30" height="30" class="d-inline-block align-top rounded-circle border-2 border-black border" alt="">
+          <a class="navbar-text text-dark">Profile</a>
+        </a>
+      </div>
+  
+    </nav>
+  </div>

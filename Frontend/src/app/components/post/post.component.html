@@ -1,0 +1,49 @@
+<div *ngIf="user">
+    <app-comment class="container col-sm col-md-8 col-lg-6 commentcard" *ngIf="comment" [postId]="postId"
+        [commentCount]="commentNumber" (emitter)="eventFromChild($event)"
+        (countEmitter)="commentEvent($event)"></app-comment>
+
+    <div class="post container-fluid border-black border-3" *ngFor="let post of posts;">
+        <div *ngIf="post.profile">
+            <div class="author row bg-dark-subtle rounded-top-4 rounded-bottom-1 mb-1 mt-2">
+                <div class="dp col-1">
+                    <img *ngIf="post.profile.ppId" src="http://localhost:9999/huduk/sos/{{post.profile.ppId}}" class="rounded-circle profilepic border-2 border-black border " height="30px" width="30px">
+                    <img *ngIf="!post.profile.ppId" src=".\assets\profile.svg" width="30px" height="30px" class="rounded-circle profilepic border-2 border-black border" alt="">
+                </div>
+                <div class="username col fw-bold fst-italic" [routerLink]="['/profile', 'username', post.profile.username]">{{post.profile.username}} <img src="./assets/verified.svg" height="20px" *ngIf="post.profile.verified"></div>
+            </div>
+
+            <div class="picture row">
+                <img src="http://localhost:9999/huduk/sos/{{post.links[0]}}">
+            </div>
+
+            <div class="action row bg-dark-subtle rounded-top-1 rounded-bottom-1 mb-1 mt-1 ">
+                <div class="likebutton col-auto actionbutton">
+                    <p (click)="like(post)">
+                        {{post.isLiked | likepipe }}
+                        <span class="badge bg-info">{{post.likeCount}}</span>
+                    </p>
+                </div>
+                <div class="commentbutton col-auto actionbutton">
+                    <p (click)="commentPopup(post)">
+                        Comment
+                        <span class="badge bg-info">{{post.commentCount}}</span>
+                    </p>
+                </div>
+                <div class="ago col text-end fst-italic ">{{post.timestamp | timeAgo}}</div>
+            </div>
+
+            <div class="description row bg-dark-subtle rounded-bottom-4 rounded-top-1 m-0 mb-2">
+                <div class="content">
+                    <p>
+                        {{post.postContent}}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="close border-top border-dark-subtle"></div>
+    </div>
+    <div class="">&nbsp;</div>
+    <div class="">&nbsp;</div>
+</div>

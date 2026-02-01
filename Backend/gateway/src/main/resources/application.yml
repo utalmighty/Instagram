@@ -1,0 +1,46 @@
+server:
+  port: 9999
+  
+spring:
+  application:
+    name: Gateway
+  cloud:
+    consul:
+      host: localhost
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:4200"
+            allowedHeaders: "*"
+            allowedMethods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: PostMS
+          uri: lb://PostMS
+          predicates:
+            - Path=/post/**
+        - id: ProfileMS
+          uri: lb://ProfileMS
+          predicates:
+            - Path=/profiles/**
+        - id: PostMS
+          uri: lb://FollowMS
+          predicates:
+            - Path=/follow/**
+        - id: SOSMS
+          uri: lb://SOSMS
+          predicates:
+            - Path=/huduk/sos/**
+        - id: UserfeedMS
+          uri: lb://UserfeedMS
+          predicates:
+            - Path=/feed/**

@@ -1,0 +1,10 @@
+@media (max-width: 767.98px) {
+    .profilepic {
+        height: 125px;
+        width: 125px;
+    }
+}
+
+.clickable:hover{
+    cursor: pointer;
+}

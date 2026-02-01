@@ -1,0 +1,10 @@
+@media (max-width: 767.98px) {
+    .navbar-text {
+        display: none;
+    }
+}
+
+.navbar-text {
+    font-weight: bolder;
+    padding: 10px;
+}
