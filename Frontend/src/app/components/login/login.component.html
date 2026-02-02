@@ -10,23 +10,26 @@
     <!-- username -->
     <div class="form-group m-3">
       <input class="form-control" placeholder="Username" type="text" id="username" formControlName="username">
-      <span id="usernameError" *ngIf="loginForm.controls['username'].dirty && loginForm.controls['username'].invalid"
-        class="text-danger">Really! thats your username?</span>
+      @if (loginForm.controls['username'].dirty && loginForm.controls['username'].invalid) {
+        <span id="usernameError" class="text-danger">Really! thats your username?</span>
+      }
     </div>
 
     <!-- password -->
     <div class="form-group m-3">
       <input class="form-control" placeholder="Password" type="password" id="password" formControlName="password">
-      <span id="passwordError" *ngIf="loginForm.controls['password'].dirty && loginForm.controls['password'].invalid"
-        class="text-danger">Are you serious?</span>
+      @if (loginForm.controls['password'].dirty && loginForm.controls['password'].invalid) {
+        <span id="passwordError" class="text-danger">Are you serious?</span>
+      }
     </div>
 
     <button class="btn btn-success m-3" type="submit" [disabled]="loginForm.invalid">Login</button>
-
-    <div class="text-center text text-danger" *ngIf="httperror"><b>
-      {{ httperror.message }}
-    </b>
-    </div>
+    
+    @if (httperror) {
+      <div class="text-center text text-danger">
+        <b> {{ httperror.message }} </b>
+      </div>
+    }
 
   </form>
 

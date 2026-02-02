@@ -1,4 +1,5 @@
-<div *ngIf="userId">
+@if (userId) {
+  <div>
     <nav class="navbar navbar-dark bg-white d-flex justify-content-around border-black border-top border-top-1">
       <div>
         <a [routerLink]="['home']">
@@ -30,11 +31,15 @@
 
       <div>
         <a [routerLink]="['/profile', 'username', '']">
-          <img *ngIf="ppId" src="http://localhost:9999/huduk/sos/{{ppId}}" width="30" height="30" class="d-inline-block align-top rounded-circle border-2 border-black border" alt="">
-          <img *ngIf="!ppId" src=".\assets\profile.svg" width="30" height="30" class="d-inline-block align-top rounded-circle border-2 border-black border" alt="">
+          @if (ppId) {
+            <img src="http://localhost:9999/huduk/sos/{{ppId}}" width="30" height="30" class="d-inline-block align-top rounded-circle border-2 border-black" alt="">
+          } @else {
+            <img src=".\assets\profile.svg" width="30" height="30" class="d-inline-block align-top rounded-circle border-2 border-black" alt="">
+          }
           <a class="navbar-text text-dark">Profile</a>
         </a>
       </div>
   
     </nav>
   </div>
+}

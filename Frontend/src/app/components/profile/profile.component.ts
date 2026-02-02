@@ -2,14 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { profile } from '../../props/profile';
 import { InstagramServiceService } from '../../services/instagram-service.service';
-import { CommonModule, Location } from '@angular/common';
 import { PostComponent } from '../post/post.component';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
-  imports: [CommonModule, RouterModule, PostComponent]
+  imports: [RouterModule, PostComponent]
 })
 export class ProfileComponent implements OnInit {
   isProfile: boolean = false
@@ -20,7 +19,7 @@ export class ProfileComponent implements OnInit {
   feedType: string = "profile"
   isLoggedInUser:boolean = false
 
-  constructor(private route: ActivatedRoute, private service: InstagramServiceService, private location:Location) {
+  constructor(private route: ActivatedRoute, private service: InstagramServiceService) {
     service.loginUser$.subscribe((a) => this.user = a);
   }
 

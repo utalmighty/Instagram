@@ -13,7 +13,9 @@
 <div>
   <div class="d-flex justify-content-center">
     <div class="w-100">
-      <app-add-post class="fixed-bottom container col-sm col-md-8 col-lg-6" (emitter)="close($event)" *ngIf="postStatus"></app-add-post>
+      @if (postStatus) {
+        <app-add-post class="fixed-bottom container col-sm col-md-8 col-lg-6" (emitter)="close($event)"></app-add-post>
+      }
       <div class="mx-auto utal">
         <router-outlet class=""></router-outlet>
       </div>

@@ -5,13 +5,12 @@ import { profile } from '../../props/profile';
 import { creds } from '../../props/creds';
 import { error } from '../../props/error';
 import { Router, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  imports: [RouterModule, ReactiveFormsModule, CommonModule]
+  imports: [RouterModule, ReactiveFormsModule]
 })
 export class LoginComponent implements OnInit {
   httperror!: error;

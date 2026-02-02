@@ -3,7 +3,6 @@ import { comment } from '../../props/comment';
 import { error } from '../../props/error';
 import { InstagramServiceService } from '../../services/instagram-service.service';
 import { profile } from '../../props/profile';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
@@ -11,7 +10,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-comment',
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.css'],
-  imports: [CommonModule, RouterModule, FormsModule]
+  imports: [RouterModule, FormsModule]
 })
 export class CommentComponent implements OnInit {
 

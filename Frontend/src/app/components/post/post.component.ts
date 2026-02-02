@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { post } from '../../props/post'
 import { InstagramServiceService } from '../../services/instagram-service.service';
 import { profile } from '../../props/profile';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CommentComponent } from '../comment/comment.component';
 import { LikePipe } from '../../pipes/like.pipe';
@@ -12,7 +11,7 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css'],
-  imports: [CommonModule, RouterModule, CommentComponent, LikePipe, TimeAgoPipe]
+  imports: [RouterModule, CommentComponent, LikePipe, TimeAgoPipe]
 })
 export class PostComponent implements OnInit {
 

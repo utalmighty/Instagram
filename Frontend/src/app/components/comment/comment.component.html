@@ -10,12 +10,18 @@
     </div>
 
     <div class="card-body" style="height: 50vh; overflow:auto">
-
-        <div *ngFor="let comment of comments">
-            <p><b class="fst-italic username"
-                    [routerLink]="['/profile', 'username', comment.profile.username]">{{comment.profile.username}} 
-                    <img src="./assets/verified.svg" height="20px" *ngIf="comment.profile.verified"></b>
-                : {{comment.comment}}</p>
+        <div>
+            @for (comment of comments; track $index) {
+                <p>
+                    <b class="fst-italic username" [routerLink]="['/profile', 'username', comment.profile.username]">
+                    {{comment.profile.username}} 
+                        @if (comment.profile.verified) {
+                            <img src="./assets/verified.svg" height="20px">
+                        }
+                    </b>
+                    : {{comment.comment}}
+                </p>
+            }
         </div>
     </div>
 
@@ -26,10 +32,12 @@
         </div>
 
     </div>
-    <div class="text-center text text-danger" *ngIf="httperror"><b>
-            {{ httperror.message }}
-        </b>
-    </div>
+    @if (httperror) {
+        <div class="text-center text text-danger"><b>
+                {{ httperror.message }}
+            </b>
+        </div>
+    }
 </div>
 
 <div class="">&nbsp;</div>

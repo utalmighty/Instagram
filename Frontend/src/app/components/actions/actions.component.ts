@@ -1,13 +1,12 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { InstagramServiceService } from '../../services/instagram-service.service';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-actions',
   templateUrl: './actions.component.html',
   styleUrls: ['./actions.component.css'],
-  imports: [CommonModule ,RouterModule]
+  imports: [RouterModule]
 })
 export class ActionsComponent {
   userId!: string;

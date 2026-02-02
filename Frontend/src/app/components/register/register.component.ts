@@ -4,13 +4,12 @@ import { InstagramServiceService } from '../../services/instagram-service.servic
 import { profile } from '../../props/profile';
 import { error } from '../../props/error';
 import { Router, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
-  imports: [CommonModule, ReactiveFormsModule, RouterModule]
+  imports: [ReactiveFormsModule, RouterModule]
 })
 export class RegisterComponent {
 

@@ -22,10 +22,11 @@
         [(ngModel)]="postConent"></textarea>
       <button class="btn btn-primary mt-2" (click)="postPost()">Post</button>
     </div>
-    <div class="text-center text text-danger" *ngIf="httperror"><b>
-      {{ httperror.message }}
-    </b>
-    </div>
+    @if (httperror) {
+      <div class="text-center text text-danger">
+        <b> {{ httperror.message }} </b>
+      </div>
+    }
 
   </div>
 </div>

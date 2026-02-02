@@ -11,42 +11,43 @@
         <!-- Fullname -->
         <div class="form-group m-3">
           <input class="form-control" placeholder="Full name" type="text" id="fullname" formControlName="fullname">
-          <span id="fullnameError"
-            *ngIf="registerForm.controls['fullname'].dirty && registerForm.controls['fullname'].invalid"
-            class="text-danger">Really! People call you by this?</span>
+          @if (registerForm.controls['fullname'].dirty && registerForm.controls['fullname'].invalid) {
+            <span id="fullnameError" class="text-danger">Really! People call you by this?</span>
+          }
         </div>
 
         
         <!-- email -->
         <div class="form-group m-3">
           <input class="form-control" placeholder="Email" type="email" id="email" formControlName="email">
-          <span id="emailError"
-            *ngIf="registerForm.controls['email'].dirty && registerForm.controls['email'].invalid"
-            class="text-danger">You think you can fake this!</span>
+          @if (registerForm.controls['email'].dirty && registerForm.controls['email'].invalid) {
+            <span id="emailError" class="text-danger">You think you can fake this!</span>
+          }
         </div>
         
         <!-- username -->
         <div class="form-group m-3">
             <input class="form-control" placeholder="Username" type="text" id="username" formControlName="username">
-            <span id="usernameError"
-                *ngIf="registerForm.controls['username'].dirty && registerForm.controls['username'].invalid"
-                class="text-danger">Doesn't look cool.</span>
+            @if (registerForm.controls['username'].dirty && registerForm.controls['username'].invalid) {
+                <span id="usernameError" class="text-danger">Doesn't look cool.</span>
+            }
         </div>
 
         <!-- password -->
         <div class="form-group m-3">
             <input class="form-control" placeholder="Password" type="password" id="password" formControlName="password">
-            <span id="passwordError"
-                *ngIf="registerForm.controls['password'].dirty && registerForm.controls['password'].invalid"
-                class="text-danger">⚠️Be serious here.</span>
+            @if (registerForm.controls['password'].dirty && registerForm.controls['password'].invalid) {
+                <span id="passwordError" class="text-danger">⚠️Be serious here.</span>
+            }
         </div>
 
         <button class="btn btn-success m-3" type="submit" [disabled]="registerForm.invalid">Register</button>
 
-        <div class="text-center text text-danger" *ngIf="httperror"><b>
-                {{ httperror.message }}
-            </b>
-        </div>
+        @if (httperror) {
+            <div class="text-center text text-danger">
+                <b>{{ httperror.message }}</b>
+            </div>
+        }
 
     </form>
 

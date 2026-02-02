@@ -3,13 +3,12 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { InstagramServiceService } from '../../services/instagram-service.service';
 import { search } from '../../props/search';
 import { profile } from '../../props/profile';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css'],
-  imports: [CommonModule, RouterModule]
+  imports: [RouterModule]
 })
 export class SearchComponent implements OnInit {
   isSearch: boolean = true

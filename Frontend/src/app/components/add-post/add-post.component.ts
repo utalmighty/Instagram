@@ -5,14 +5,13 @@ import { InstagramServiceService } from '../../services/instagram-service.servic
 import { post } from '../../props/post';
 import { profile } from '../../props/profile';
 import { simpleMessage } from '../../props/simpleMessage';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-add-post',
   templateUrl: './add-post.component.html',
   styleUrls: ['./add-post.component.css'],
-  imports: [CommonModule, FormsModule]
+  imports: [FormsModule]
 })
 export class AddPostComponent {
 
