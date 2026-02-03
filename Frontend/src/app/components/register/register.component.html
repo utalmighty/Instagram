@@ -12,7 +12,7 @@
         <div class="form-group m-3">
           <input class="form-control" placeholder="Full name" type="text" id="fullname" formControlName="fullname">
           @if (registerForm.controls['fullname'].dirty && registerForm.controls['fullname'].invalid) {
-            <span id="fullnameError" class="text-danger">Really! People call you by this?</span>
+            <span id="fullnameError" class="text-danger">😆 Really! People call you by this?</span>
           }
         </div>
 
@@ -21,7 +21,7 @@
         <div class="form-group m-3">
           <input class="form-control" placeholder="Email" type="email" id="email" formControlName="email">
           @if (registerForm.controls['email'].dirty && registerForm.controls['email'].invalid) {
-            <span id="emailError" class="text-danger">You think you can fake this!</span>
+            <span id="emailError" class="text-danger">🤨 You think you can fake this!</span>
           }
         </div>
         
@@ -29,7 +29,7 @@
         <div class="form-group m-3">
             <input class="form-control" placeholder="Username" type="text" id="username" formControlName="username">
             @if (registerForm.controls['username'].dirty && registerForm.controls['username'].invalid) {
-                <span id="usernameError" class="text-danger">Doesn't look cool.</span>
+                <span id="usernameError" class="text-danger">👎 Doesn't look cool.</span>
             }
         </div>
 
@@ -37,7 +37,7 @@
         <div class="form-group m-3">
             <input class="form-control" placeholder="Password" type="password" id="password" formControlName="password">
             @if (registerForm.controls['password'].dirty && registerForm.controls['password'].invalid) {
-                <span id="passwordError" class="text-danger">⚠️Be serious here.</span>
+                <span id="passwordError" class="text-danger">⚠️ Be serious here.</span>
             }
         </div>
 
@@ -51,6 +51,6 @@
 
     </form>
 
-    <div class="m-3"><a class="linkclass" [routerLink]="['/login']"><b>Login Instead</b></a></div>
+    <div class="m-3"><a class="linkclass" [routerLink]="['/login']"><b>Login instead</b></a></div>
 
 </div>

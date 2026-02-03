@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { profile } from '../../props/profile';
 import { InstagramServiceService } from '../../services/instagram-service.service';
@@ -10,7 +10,7 @@ import { PostComponent } from '../post/post.component';
   styleUrls: ['./profile.component.css'],
   imports: [RouterModule, PostComponent]
 })
-export class ProfileComponent implements OnInit, OnDestroy {
+export class ProfileComponent implements OnInit {
   isProfile: boolean = false
   loggedInUser!: profile
   chosenUser!: profile
@@ -70,11 +70,5 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   logout() {
     location.reload();
-  }
-
-  ngOnDestroy(): void {
-    if (this.service.loginUser$) {
-      this.service.loginUser$.unsubscribe();
-    }
   }
 }

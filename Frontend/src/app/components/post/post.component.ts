@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { post } from '../../props/post'
 import { InstagramServiceService } from '../../services/instagram-service.service';
 import { profile } from '../../props/profile';
@@ -13,7 +13,7 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
   styleUrls: ['./post.component.css'],
   imports: [RouterModule, CommentComponent, LikePipe, TimeAgoPipe]
 })
-export class PostComponent implements OnInit, OnDestroy {
+export class PostComponent implements OnInit {
 
   comment!: boolean;
   commentNumber!: number;
@@ -126,11 +126,4 @@ export class PostComponent implements OnInit, OnDestroy {
     else post.likeCount -= 1;
     this.service.like(this.loggedInUser.userId, post.id).subscribe(resp => resp);
   }
-
-  ngOnDestroy(): void {
-    if (this.service.loginUser$) {
-      this.service.loginUser$.unsubscribe();
-    }
-  }
-
 }

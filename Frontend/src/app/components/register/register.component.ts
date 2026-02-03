@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InstagramServiceService } from '../../services/instagram-service.service';
 import { profile } from '../../props/profile';
@@ -11,7 +11,7 @@ import { Router, RouterModule } from '@angular/router';
   styleUrls: ['./register.component.css'],
   imports: [ReactiveFormsModule, RouterModule]
 })
-export class RegisterComponent implements OnInit, OnDestroy {
+export class RegisterComponent implements OnInit {
 
   httperror!: error;
   registerForm!: FormGroup;
@@ -44,11 +44,5 @@ export class RegisterComponent implements OnInit, OnDestroy {
       },
       (err)=> this.httperror = err.error
     );
-  }
-
-  ngOnDestroy(): void {
-    if (this.service.loginUser$) {
-      this.service.loginUser$.unsubscribe();
-    }
   }
 }

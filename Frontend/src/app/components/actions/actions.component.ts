@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { InstagramServiceService } from '../../services/instagram-service.service';
 import { RouterModule } from '@angular/router';
 import { profile } from '../../props/profile';
@@ -9,7 +9,7 @@ import { profile } from '../../props/profile';
   styleUrls: ['./actions.component.css'],
   imports: [RouterModule]
 })
-export class ActionsComponent implements OnInit, OnDestroy{
+export class ActionsComponent implements OnInit {
   
   loggedInUser!: profile;
   @Output()
@@ -23,11 +23,5 @@ export class ActionsComponent implements OnInit, OnDestroy{
   
   openPost() {
     this.emitter.emit(true);
-  }
-
-  ngOnDestroy(): void {
-    if (this.service.loginUser$) {
-      this.service.loginUser$.unsubscribe();
-    }
   }
 }

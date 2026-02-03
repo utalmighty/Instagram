@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { error } from '../../props/error';
 import { InstagramServiceService } from '../../services/instagram-service.service';
@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./add-post.component.css'],
   imports: [FormsModule]
 })
-export class AddPostComponent implements OnInit, OnDestroy {
+export class AddPostComponent implements OnInit {
 
   httperror!: error;
   fileName!: string;
@@ -66,11 +66,5 @@ export class AddPostComponent implements OnInit, OnDestroy {
       },
       error: (err)=> this.httperror = err
     });
-  }
-
-  ngOnDestroy(): void {
-    if (this.service.loginUser$) {
-      this.service.loginUser$.unsubscribe();
-    }
   }
 }

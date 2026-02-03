@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { comment } from '../../props/comment';
 import { error } from '../../props/error';
 import { InstagramServiceService } from '../../services/instagram-service.service';
@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./comment.component.css'],
   imports: [RouterModule, FormsModule]
 })
-export class CommentComponent implements OnInit, OnDestroy {
+export class CommentComponent implements OnInit {
 
   httperror!: error;
   @Input() postId!: string;
@@ -60,12 +60,6 @@ export class CommentComponent implements OnInit, OnDestroy {
     }
     else {
       this.commentPlaceHolder = "Please provide Comment"
-    }
-  }
-  
-  ngOnDestroy(): void {
-    if (this.service.loginUser$) {
-      this.service.loginUser$.unsubscribe();
     }
   }
 }
