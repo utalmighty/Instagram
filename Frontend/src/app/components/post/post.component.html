@@ -1,4 +1,4 @@
-@if (user) {
+@if (loggedInUser) {
     <div>
         @if (comment) {
             <app-comment class="container col-sm col-md-8 col-lg-6 commentcard" [postId]="postId"

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InstagramServiceService } from '../../services/instagram-service.service';
 import { profile } from '../../props/profile';
@@ -12,35 +12,39 @@ import { Router, RouterModule } from '@angular/router';
   styleUrls: ['./login.component.css'],
   imports: [RouterModule, ReactiveFormsModule]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   httperror!: error;
   loginForm!: FormGroup;
-  user!: profile;
+  loggedInUser!: profile;
 
-  constructor(private formBuilder: FormBuilder, private service: InstagramServiceService, private router: Router) {
-    service.loginUser$.subscribe(r=> this.user = r);
-  }
+  constructor(private formBuilder: FormBuilder, private service: InstagramServiceService, private router: Router) {}
 
   ngOnInit(): void {
+    this.service.loginUser$.subscribe(user => this.loggedInUser = user);
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.pattern("[A-Za-z0-9_. ]{3,}")]],
       password: ['', [Validators.required, Validators.minLength(3)]]
-    })
+    });
   }
 
-  login(){
+  login() {
     const creds: creds | any = {
       username: this.loginForm.controls['username'].value,
       password: this.loginForm.controls['password'].value
     };
-    this.service.login(creds).subscribe(
-      (resp) => { 
-        this.user = resp;        
-        this.service.loginUser$.next(this.user);
-        this.router.navigate(['/home']);
-      },
-      (err)=> this.httperror = err.error
-    );
+    this.service.login(creds).subscribe({
+        next: (resp) => {
+          this.loggedInUser = resp;        
+          this.service.loginUser$.next(this.loggedInUser);
+          this.router.navigate(['/home']);
+        },
+        error: (err) => this.httperror = err
+      });
   }
 
+  ngOnDestroy(): void {
+    if (this.service.loginUser$) {
+      this.service.loginUser$.unsubscribe();
+    }
+  }
 }

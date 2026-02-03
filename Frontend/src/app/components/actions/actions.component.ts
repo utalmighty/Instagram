@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { InstagramServiceService } from '../../services/instagram-service.service';
 import { RouterModule } from '@angular/router';
+import { profile } from '../../props/profile';
 
 @Component({
   selector: 'app-actions',
@@ -8,21 +9,25 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./actions.component.css'],
   imports: [RouterModule]
 })
-export class ActionsComponent {
-  userId!: string;
-  ppId!: string;
+export class ActionsComponent implements OnInit, OnDestroy{
+  
+  loggedInUser!: profile;
   @Output()
   emitter: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(private service: InstagramServiceService) {
-    this.service.loginUser$.subscribe((r) => {
-      this.userId = r.userId
-      this.ppId = r.ppId
-    })
-  }
+  constructor(private service: InstagramServiceService) {}
 
+  ngOnInit(): void {
+    this.service.loginUser$.subscribe(user => this.loggedInUser = user);
+  }
+  
   openPost() {
     this.emitter.emit(true);
   }
 
+  ngOnDestroy(): void {
+    if (this.service.loginUser$) {
+      this.service.loginUser$.unsubscribe();
+    }
+  }
 }

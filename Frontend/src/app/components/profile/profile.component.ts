@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { profile } from '../../props/profile';
 import { InstagramServiceService } from '../../services/instagram-service.service';
@@ -10,25 +10,24 @@ import { PostComponent } from '../post/post.component';
   styleUrls: ['./profile.component.css'],
   imports: [RouterModule, PostComponent]
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   isProfile: boolean = false
-  user!: profile
+  loggedInUser!: profile
   chosenUser!: profile
   following: boolean = false
   sharedname: string = ""
   feedType: string = "profile"
   isLoggedInUser:boolean = false
 
-  constructor(private route: ActivatedRoute, private service: InstagramServiceService) {
-    service.loginUser$.subscribe((a) => this.user = a);
-  }
+  constructor(private route: ActivatedRoute, private service: InstagramServiceService) { }
 
   ngOnInit(): void {
+    this.service.loginUser$.subscribe(user => this.loggedInUser = user);
     this.route.params.subscribe(param => {
       if (param['type'] == "username") {
         this.isProfile = true;
         if (!param['name']) {
-          this.chosenUser = this.user
+          this.chosenUser = this.loggedInUser
           this.sharedname = this.chosenUser.userId
           this.isLoggedInUser = true
           console.log(this.chosenUser.verified);
@@ -39,7 +38,7 @@ export class ProfileComponent implements OnInit {
               this.chosenUser = resp
               console.log(this.chosenUser.verified);
               this.sharedname = this.chosenUser.userId
-              this.service.isFollowing(this.user.userId, this.chosenUser.userId). subscribe(
+              this.service.isFollowing(this.loggedInUser.userId, this.chosenUser.userId). subscribe(
                 (res)=> this.following = res.message.toString() == "true"
               )}
             // (err)=> TODO: 404 error
@@ -60,7 +59,7 @@ export class ProfileComponent implements OnInit {
   }
 
   follow() {
-    this.service.follow(this.user.userId, this.chosenUser.userId).subscribe((resp)=> {
+    this.service.follow(this.loggedInUser.userId, this.chosenUser.userId).subscribe((resp)=> {
       if (this.following)
         this.chosenUser.followersCount -= 1
       else 
@@ -69,8 +68,13 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-
   logout() {
     location.reload();
+  }
+
+  ngOnDestroy(): void {
+    if (this.service.loginUser$) {
+      this.service.loginUser$.unsubscribe();
+    }
   }
 }

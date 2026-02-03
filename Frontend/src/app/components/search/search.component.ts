@@ -82,7 +82,5 @@ export class SearchComponent implements OnInit {
     let now: any = new Date();
     return now-this.previous >= diff;
   }
-
-
 }
 

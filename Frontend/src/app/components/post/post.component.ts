@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { post } from '../../props/post'
 import { InstagramServiceService } from '../../services/instagram-service.service';
 import { profile } from '../../props/profile';
@@ -13,7 +13,7 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
   styleUrls: ['./post.component.css'],
   imports: [RouterModule, CommentComponent, LikePipe, TimeAgoPipe]
 })
-export class PostComponent implements OnInit {
+export class PostComponent implements OnInit, OnDestroy {
 
   comment!: boolean;
   commentNumber!: number;
@@ -21,15 +21,14 @@ export class PostComponent implements OnInit {
   postIds!: string[];
   posts!: post[];
   selectedPost!: post;
-  user!: profile;
+  loggedInUser!: profile;
   @Input() feedType: string = 'userfeed'
   @Input() searchQuery!: string;
 
-  constructor(private service: InstagramServiceService) {
-    service.loginUser$.subscribe((a) => this.user = a);
-  }
-
+  constructor(private service: InstagramServiceService) {}
+  
   ngOnInit(): void {
+    this.service.loginUser$.subscribe(user => this.loggedInUser = user);
     if (this.feedType == 'userfeed') {
       this.fetchUserFeed()
     } else if (this.feedType == 'profile') {
@@ -50,7 +49,7 @@ export class PostComponent implements OnInit {
         this.posts.forEach(
           (p) => {
             this.service.getUserDetails(p.userId).subscribe((pro) => p.profile = pro)
-            this.service.likestatus(this.user.userId, p.id).subscribe((pro) => p.isLiked = this.booleanStringToBoolean(pro.message))
+            this.service.likestatus(this.loggedInUser.userId, p.id).subscribe((pro) => p.isLiked = this.booleanStringToBoolean(pro.message))
           });
       })
     });
@@ -66,7 +65,7 @@ export class PostComponent implements OnInit {
         this.posts.forEach(
           (p) => {
             this.service.getUserDetails(p.userId).subscribe((pro) => p.profile = pro)
-            this.service.likestatus(this.user.userId, p.id).subscribe((pro) => p.isLiked = this.booleanStringToBoolean(pro.message))
+            this.service.likestatus(this.loggedInUser.userId, p.id).subscribe((pro) => p.isLiked = this.booleanStringToBoolean(pro.message))
           });
       })
     });
@@ -74,7 +73,7 @@ export class PostComponent implements OnInit {
 
   fetchUserFeed() {
     this.postIds = []    
-    this.service.getFeed(this.user.userId).subscribe((r) => {
+    this.service.getFeed(this.loggedInUser.userId).subscribe((r) => {
       this.postIds = r
       this.postIds.reverse()
       // this.postIds = ["65e61463f866705078abbb66", "65e61837f866705078abbb67", "65e6bc9dbc15b2351cf55809"]
@@ -83,7 +82,7 @@ export class PostComponent implements OnInit {
         this.posts.forEach(
           (p) => {
             this.service.getUserDetails(p.userId).subscribe((pro) => p.profile = pro)
-            this.service.likestatus(this.user.userId, p.id).subscribe((pro) => p.isLiked = this.booleanStringToBoolean(pro.message))
+            this.service.likestatus(this.loggedInUser.userId, p.id).subscribe((pro) => p.isLiked = this.booleanStringToBoolean(pro.message))
           });
       })
     });
@@ -97,7 +96,7 @@ export class PostComponent implements OnInit {
       this.posts.forEach(
         (p) => {
           this.service.getUserDetails(p.userId).subscribe((pro) => p.profile = pro)
-          this.service.likestatus(this.user.userId, p.id).subscribe((pro) => p.isLiked = this.booleanStringToBoolean(pro.message))
+          this.service.likestatus(this.loggedInUser.userId, p.id).subscribe((pro) => p.isLiked = this.booleanStringToBoolean(pro.message))
         });
     });
   }
@@ -125,7 +124,13 @@ export class PostComponent implements OnInit {
     post.isLiked = !post.isLiked;
     if (post.isLiked) post.likeCount += 1;
     else post.likeCount -= 1;
-    this.service.like(this.user.userId, post.id).subscribe(resp => resp);
+    this.service.like(this.loggedInUser.userId, post.id).subscribe(resp => resp);
+  }
+
+  ngOnDestroy(): void {
+    if (this.service.loginUser$) {
+      this.service.loginUser$.unsubscribe();
+    }
   }
 
 }

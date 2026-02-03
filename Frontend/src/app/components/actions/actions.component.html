@@ -1,4 +1,4 @@
-@if (userId) {
+@if (loggedInUser.username) {
   <div>
     <nav class="navbar navbar-dark bg-white d-flex justify-content-around border-black border-top border-top-1">
       <div>
@@ -31,8 +31,8 @@
 
       <div>
         <a [routerLink]="['/profile', 'username', '']">
-          @if (ppId) {
-            <img src="http://localhost:9999/huduk/sos/{{ppId}}" width="30" height="30" class="d-inline-block align-top rounded-circle border-2 border-black" alt="">
+          @if (loggedInUser.ppId) {
+            <img src="http://localhost:9999/huduk/sos/{{loggedInUser.ppId}}" width="30" height="30" class="d-inline-block align-top rounded-circle border-2 border-black" alt="">
           } @else {
             <img src=".\assets\profile.svg" width="30" height="30" class="d-inline-block align-top rounded-circle border-2 border-black" alt="">
           }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InstagramServiceService } from '../../services/instagram-service.service';
 import { profile } from '../../props/profile';
@@ -11,17 +11,16 @@ import { Router, RouterModule } from '@angular/router';
   styleUrls: ['./register.component.css'],
   imports: [ReactiveFormsModule, RouterModule]
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit, OnDestroy {
 
   httperror!: error;
   registerForm!: FormGroup;
-  user!: profile;
+  loggedInUser!: profile;
 
-  constructor(private formBuilder: FormBuilder, private service: InstagramServiceService, private router: Router) {
-    service.loginUser$.subscribe((a) => this.user = a);
-  }
+  constructor(private formBuilder: FormBuilder, private service: InstagramServiceService, private router: Router) {}
 
   ngOnInit(): void {
+    this.service.loginUser$.subscribe(user => this.loggedInUser = user);
     this.registerForm = this.formBuilder.group({
       fullname: ['', [Validators.required, Validators.pattern("[A-Za-z ]{3,}")]],
       email: ['', [Validators.required, Validators.email]],
@@ -39,11 +38,17 @@ export class RegisterComponent {
     };
     this.service.registerUser(profile).subscribe(
       (resp) => { 
-        this.user = resp;
-        this.service.loginUser$.next(this.user);
+        this.loggedInUser = resp;
+        this.service.loginUser$.next(this.loggedInUser);
         this.router.navigate(['/home']);
       },
       (err)=> this.httperror = err.error
     );
+  }
+
+  ngOnDestroy(): void {
+    if (this.service.loginUser$) {
+      this.service.loginUser$.unsubscribe();
+    }
   }
 }

@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        @if (chosenUser.username == user.username) {
+                        @if (chosenUser.username == loggedInUser.username) {
                             <button class="btn btn-close-white border-black  fw-bold" (click)="logout()">Log out</button>
                         } @else {
                             @if (following) {

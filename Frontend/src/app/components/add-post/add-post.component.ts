@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { error } from '../../props/error';
 import { InstagramServiceService } from '../../services/instagram-service.service';
@@ -13,57 +13,64 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./add-post.component.css'],
   imports: [FormsModule]
 })
-export class AddPostComponent {
-
-  @Output()
-  emitter: EventEmitter<boolean> = new EventEmitter();
+export class AddPostComponent implements OnInit, OnDestroy {
 
   httperror!: error;
   fileName!: string;
   postPlaceHolder: string = "Whats on your mind?";
   postConent!: string;
   fileUploadResp!: simpleMessage;
-  user!: profile
+  loggedInUser!: profile
   post!: post;
+  @Output()
+  emitter: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(private instaService: InstagramServiceService, private router: Router) { 
-    instaService.loginUser$.subscribe((a)=> this.user = a);
+  constructor(private service: InstagramServiceService, private router: Router) { }
+  
+  ngOnInit(): void {
+    this.service.loginUser$.subscribe(user => this.loggedInUser = user);
   }
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
-
+    
     if (file) {
       this.fileName = file.name;
       const formData = new FormData();
       formData.append("file", file);
-
-      this.instaService.postImage(formData)
-        .subscribe((r) => {
-          this.fileUploadResp = r
-          console.log(r);
+      
+      this.service.postImage(formData).subscribe({
+        next: (resp) => {
+          this.fileUploadResp = resp
+          console.log(resp);
         },
-        (e) => alert("Unable to post."))
+        error: (err) => alert("Unable to post.")
+      })
     }
   }
-
+  
   close() {
     this.emitter.emit(false);
   }
-
+  
   postPost() {
     this.post = new post();
     this.post.postContent = this.postConent;
-    this.post.userId = this.user.userId;
+    this.post.userId = this.loggedInUser.userId;
     this.post.links = [this.fileUploadResp.message];
-
-    this.instaService.postAPost(this.post).subscribe(
-      (resp)=> {
+    
+    this.service.postAPost(this.post).subscribe({
+      next: (resp)=> {
         this.post = resp
         this.router.navigate(['/home']);
       },
-      (err)=> this.httperror = err
-    );
+      error: (err)=> this.httperror = err
+    });
   }
 
+  ngOnDestroy(): void {
+    if (this.service.loginUser$) {
+      this.service.loginUser$.unsubscribe();
+    }
+  }
 }
